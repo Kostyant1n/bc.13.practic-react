@@ -1,28 +1,31 @@
+import { Component } from "react/cjs/react.production.min";
+import MaimBtns from "../MainBtns/MainBtns";
 import TransactionForm from "../TransactionForm/TransactionForm";
 
-const MainPage = ({ changePage }) => {
-  return (
-    <>
-      <TransactionForm />
-      <button
-        onClick={() => {
-          changePage("incomes");
-        }}
-        type="button"
-      >
-        Доходы
-      </button>
+class MainPage extends Component {
+  state = {
+    isOpenCategoties: false,
+  };
+  toggleCategoryList = () => {
+    this.setState((prevState) => ({
+      isOpenCategoties: !prevState.isOpenCategoties,
+    }));
+  };
+  render() {
+    const { changePage, addTransaction } = this.props;
+    const { isOpenCategoties } = this.state;
 
-      <button
-        onClick={() => {
-          changePage("costs");
-        }}
-        type="button"
-      >
-        Расходы
-      </button>
-    </>
-  );
-};
+    return (
+      <>
+        <TransactionForm
+          isOpenCategoties={isOpenCategoties}
+          toggleCategoryList={this.toggleCategoryList}
+          addTransaction={addTransaction}
+        />
+        {!isOpenCategoties && <MaimBtns changePage={changePage} />}
+      </>
+    );
+  }
+}
 
 export default MainPage;

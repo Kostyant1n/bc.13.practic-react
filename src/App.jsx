@@ -6,6 +6,7 @@ import TransactionListPage from "./components/TransactionListPage/TransactionLis
 class App extends Component {
   state = {
     activePage: "main", //main || incomes || costs
+    transaction: [],
   };
 
   changePage = (activePage) =>
@@ -13,11 +14,22 @@ class App extends Component {
       activePage,
     });
 
+  changePage = (activePage) => this.setState({ activePage });
+
+  addTransaction = (newTrans) => {
+    this.setState(({ transaction }) => ({
+      transaction: [...transaction, newTrans],
+    }));
+  };
+
   render() {
     return (
       <div>
         {this.state.activePage === "main" && (
-          <MainPage changePage={this.changePage} />
+          <MainPage
+            changePage={this.changePage}
+            addTransaction={this.addTransaction}
+          />
         )}
         {this.state.activePage === "incomes" && (
           <TransactionListPage

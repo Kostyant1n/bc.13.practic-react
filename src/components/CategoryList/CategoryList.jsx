@@ -26,18 +26,21 @@ class CategoryList extends Component {
   };
 
   render() {
-    const { categoriesList } = this.props;
+    const { categoriesList, toggleCategoryList, setCategory } = this.props;
     return (
       <>
+        <button type="button" onClick={toggleCategoryList}>
+          Back
+        </button>
         <ul>
           {categoriesList.map((el) => (
             <li key={el.id}>
-              <p>{el.title}</p>
+              <p onClick={() => setCategory(el.title)}>{el.title}</p>
               <button>...</button>
-              <div>
+              {/* <div>
                 <button>Delete</button>
                 <button>Edit</button>
-              </div>
+              </div> */}
             </li>
           ))}
         </ul>
