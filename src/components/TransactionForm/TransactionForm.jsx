@@ -14,6 +14,7 @@ class TransactionForm extends Component {
       { id: 1, title: "Eat" },
       { id: 2, title: "Drink" },
     ],
+    transType: "costs",
   };
 
   handleChange = (e) => {
@@ -72,7 +73,11 @@ class TransactionForm extends Component {
       <>
         {!isOpenCategoties ? (
           <>
-            <select name="transType" id="">
+            <select
+              name="transType"
+              value={this.state.transType}
+              onChange={this.handleChange}
+            >
               <option value="incomes">Доходы</option>
               <option value="costs">Расходы</option>
             </select>

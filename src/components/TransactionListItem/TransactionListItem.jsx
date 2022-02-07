@@ -9,12 +9,14 @@ class TransactionListItem extends Component {
     this.setState((prevState) => ({ isOpenMenu: !prevState.isOpenMenu }));
 
   render() {
+    const { comment, currency, date, sum, time } = this.props;
     return (
       <li>
-        <p>date</p>
-        <p>time</p>
-        <p>amaunt</p>
-        <p>currency</p>
+        <p>{date}</p>
+        <p>{time}</p>
+        <p>{sum}</p>
+        <p>{currency}</p>
+        <p>{comment}</p>
         <button onClick={this.switchMenu} type="button">
           ...
         </button>

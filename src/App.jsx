@@ -6,7 +6,9 @@ import TransactionListPage from "./components/TransactionListPage/TransactionLis
 class App extends Component {
   state = {
     activePage: "main", //main || incomes || costs
-    transaction: [],
+    transactions: [],
+    // costs: [],
+    // incomes: [],
   };
 
   changePage = (activePage) =>
@@ -14,13 +16,27 @@ class App extends Component {
       activePage,
     });
 
-  changePage = (activePage) => this.setState({ activePage });
+  // changePage = (activePage) => this.setState({ activePage });
 
   addTransaction = (newTrans) => {
-    this.setState(({ transaction }) => ({
-      transaction: [...transaction, newTrans],
+    this.setState(({ transactions }) => ({
+      transaction: [...transactions, newTrans],
     }));
   };
+
+  componentDidMount() {
+    const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+    this.setState({ transactions });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.transaction !== this.state.transaction) {
+      localStorage.setItem(
+        "transactions",
+        JSON.stringify(this.state.transaction)
+      );
+    }
+  }
 
   render() {
     return (
@@ -35,12 +51,14 @@ class App extends Component {
           <TransactionListPage
             changePage={this.changePage}
             transType={"incomes"}
+            transactions={this.state.transactions}
           />
         )}
         {this.state.activePage === "costs" && (
           <TransactionListPage
             changePage={this.changePage}
             transType={"incomes"}
+            transactions={this.state.transactions}
           />
         )}
         {/* <TransactionForm /> */}
